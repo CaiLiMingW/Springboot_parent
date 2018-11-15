@@ -1,0 +1,30 @@
+#端口号
+server:
+  port: 9001
+
+#数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.56.128:3306/tensquare_base?useunicode=true&characterEncoding=utf8
+    username: root
+    password: root
+
+#Mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.clm.bean
+
+#日志
+logging:
+  level:
+    org:
+      clm:
+        Dao: debug
+
+#分页
+pagehelper:
+  auto-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.clm.Dao.LabelMapper" >
+  <resultMap id="BaseResultMap" type="org.clm.bean.Label" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="labelname" property="labelname" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="BIGINT" />
+    <result column="recommend" property="recommend" jdbcType="VARCHAR" />
+    <result column="fans" property="fans" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, labelname, state, count, recommend, fans
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_label
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_label
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.clm.bean.Label" >
+    insert into tb_label (id, labelname, state, 
+      count, recommend, fans
+      )
+    values (#{id,jdbcType=VARCHAR}, #{labelname,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
+      #{count,jdbcType=BIGINT}, #{recommend,jdbcType=VARCHAR}, #{fans,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.clm.bean.Label" >
+    insert into tb_label
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="labelname != null" >
+        labelname,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="recommend != null" >
+        recommend,
+      </if>
+      <if test="fans != null" >
+        fans,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="labelname != null" >
+        #{labelname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=BIGINT},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=VARCHAR},
+      </if>
+      <if test="fans != null" >
+        #{fans,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.clm.bean.Label" >
+    update tb_label
+    <set >
+      <if test="labelname != null" >
+        labelname = #{labelname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=BIGINT},
+      </if>
+      <if test="recommend != null" >
+        recommend = #{recommend,jdbcType=VARCHAR},
+      </if>
+      <if test="fans != null" >
+        fans = #{fans,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.clm.bean.Label" >
+    update tb_label
+    set labelname = #{labelname,jdbcType=VARCHAR},
+      state = #{state,jdbcType=VARCHAR},
+      count = #{count,jdbcType=BIGINT},
+      recommend = #{recommend,jdbcType=VARCHAR},
+      fans = #{fans,jdbcType=BIGINT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
