@@ -15,6 +15,22 @@
     from tb_city
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByKeyword" resultType="org.clm.bean.City">
+    select
+    <include refid="Base_Column_List" />
+    from tb_city
+    <where>
+      <if test="id !=null and id != ''">
+        and id == #{id}
+      </if>
+      <if test="name !=null and name != ''">
+        and name like #{name}
+      </if>
+      <if test="ishot !=null and ishot != ''">
+        and ishot = #{ishot}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tb_city
     where id = #{id,jdbcType=VARCHAR}

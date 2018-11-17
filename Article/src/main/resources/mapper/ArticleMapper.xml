@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.clm.Dao.ArticleMapper">
+
+    <select id="selectByKey" resultType="org.clm.Bean.Article">
+        SELECT *
+        FROM tb_article
+        <where>
+            <if test="id != null and id !=''">
+                or id = #{id}
+            </if>
+            <if test="columnid != null and columnid !=''">
+                or columnid = #{columnid}
+            </if>
+            <if test="userid != null and userid !=''">
+                or userid = #{userid}
+            </if>
+            <if test="title != null and title !=''">
+                or title like concat('%',#{title},'%')
+            </if>
+            <if test="content != null and content !=''">
+                or content like concat('%',#{content},'%')
+            </if>
+            <if test="ispublic != null and ispublic !=''">
+                or ispublic = #{ispublic}
+            </if>
+            <if test="istop != null and istop !=''">
+                or istop = #{istop}
+            </if>
+            <if test="visits != null and visits !=''">
+                or visits = #{visits}
+            </if>
+            <if test="comment != null and comment !=''">
+                or comment like concat('%',#{comment},'%')
+            </if>
+            <if test="state != null and state !=''">
+                or state = #{state}
+            </if>
+            <if test="channelid != null and channelid !=''">
+                or channelid = #{channelid}
+            </if>
+        </where>
+        order by createtime
+    </select>
+</mapper>

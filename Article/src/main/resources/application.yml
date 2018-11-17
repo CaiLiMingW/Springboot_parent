@@ -1,0 +1,35 @@
+#端口号
+server:
+  port: 9003
+
+#数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.78.128.136:3307/tensquare_article?useunicode=true&characterEncoding=utf8
+    username: root
+    password: 1234
+  application: Article
+  redis:
+    host: 120.78.128.136
+    port: 9995
+
+#Mybatis
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.clm.Bean
+#日志
+logging:
+  level:
+    org:
+      clm:
+        Dao: debug
+
+#分页
+pagehelper:
+  auto-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
+
+#redis

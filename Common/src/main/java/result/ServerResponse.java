@@ -1,9 +1,13 @@
+package result;
+
+import java.io.Serializable;
+
 /**
  * @author Ccc
  * @date 2018/11/15 0015 下午 6:59
  * 消息返回类
  */
-public class ServerResponse<T> {
+public class ServerResponse<T> implements Serializable {
 
     private boolean flag;
     private Integer code;
@@ -47,7 +51,7 @@ public class ServerResponse<T> {
         return new ServerResponse<T>(false,code,StatusCode.codeOf(code));
     }
 
-    public static<T> ServerResponse<T> CreateByErrorCode(Integer code,T data){
+    public static<T> ServerResponse<T> CreateByErrorCode(Integer code, T data){
         return new ServerResponse<T>(false,code,StatusCode.codeOf(code),data);
     }
 

@@ -1,4 +1,4 @@
-package org.clm.bean;
+package org.clm;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -12,9 +12,9 @@ import utils.IdWorker;
  */
 @MapperScan("org.clm.Dao")
 @SpringBootApplication
-public class BaseApplication {
+public class QaApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BaseApplication.class);
+        SpringApplication.run(QaApplication.class,args);
     }
     @Bean
     public IdWorker idWorker(){

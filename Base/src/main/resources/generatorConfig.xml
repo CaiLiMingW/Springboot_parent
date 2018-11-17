@@ -11,7 +11,7 @@
 		</commentGenerator>
 		<!-- 配置数据库连接 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://192.168.56.128:3306/tensquare_base" userId="root"
+			connectionURL="jdbc:mysql://120.78.128.136:3307/tensquare_base" userId="root"
 			password="root">
 		</jdbcConnection>
 

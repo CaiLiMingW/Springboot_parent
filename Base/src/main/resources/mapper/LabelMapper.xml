@@ -18,6 +18,28 @@
     from tb_label
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  <select id="selectByLable" parameterType="org.clm.bean.Label" resultType="org.clm.bean.Label">
+    select
+    <include refid="Base_Column_List" />
+    from tb_label
+    <where>
+      <if test="labelname !=null and labelname != ''">
+          and labelname like #{labelname}
+      </if>
+      <if test="state !=null and state != ''">
+        and state = #{state}
+      </if>
+      <if test="count !=null and count != ''">
+        and count = #{count}
+      </if>
+      <if test="recommend !=null and recommend != ''">
+        and recommend = #{recommend}
+      </if>
+      <if test="fans !=null and fans != ''">
+        and fans = #{fans}
+      </if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tb_label
     where id = #{id,jdbcType=VARCHAR}

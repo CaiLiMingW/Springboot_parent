@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.clm.Dao.EnterpriseMapper">
+
+    <select id="selectByKey" resultType="org.clm.Bean.Enterprise">
+        SELECT *
+        FROM tb_enterprise
+        <where>
+            <if test="id != null and id !=''">
+                or id = #{id}
+            </if>
+            <if test="name != null and name !=''">
+                or name like concat('%',#{name},'%')
+            </if>
+            <if test="summary != null and summary !=''">
+                or summary like concat('%',#{summary},'%')
+            </if>
+            <if test="address != null and address !=''">
+                or address like concat('%',#{address},'%')
+            </if>
+            <if test="labels != null and labels !=''">
+                or labels like concat('%',#{labels},'%')
+            </if>
+            <if test="url != null and url !=''">
+                or url like concat('%',#{url},'%')
+            </if>
+            <if test="coordinate != null and coordinate !=''">
+                or coordinate = #{coordinate}
+            </if>
+            <if test="ishot != null and ishot !=''">
+                or ishot = #{ishot}
+            </if>
+            <if test="logo != null and logo !=''">
+                or logo = #{logo}
+            </if>
+            <if test="jobcount != null and jobcount !=''">
+                or jobcount = #{jobcount}
+            </if>
+        </where>
+        order by createtime
+    </select>
+</mapper>

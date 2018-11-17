@@ -6,9 +6,10 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.56.128:3306/tensquare_base?useunicode=true&characterEncoding=utf8
+    url: jdbc:mysql://120.78.128.136:3307/tensquare_base?useunicode=true&characterEncoding=utf8
     username: root
-    password: root
+    password: 1234
+  application: Base
 
 #Mybatis
 mybatis:
