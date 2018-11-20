@@ -1,9 +1,9 @@
 aliyun:
   sms:
-  accessKeyId: LTAIZn5crtRSKcs1
-  accessKeySecret: ElHK8jWSzGUJun9DCRfpJFmrrt0V5S
-  template_code: SMS_151577549
-  sign_name: 账号注册
+    accessKeyId: LTAIZn5crtRSKcs1
+    accessKeySecret: ElHK8jWSzGUJun9DCRfpJFmrrt0V5S
+    template_code: SMS_151577549
+    sign_name: 账号注册
 #端口号
 server:
   port: 9009
