@@ -2,6 +2,7 @@
 server:
   port: 9004
 
+#elasticsearch
 #数据源
 spring:
   datasource:
@@ -9,10 +10,12 @@ spring:
     url: jdbc:mysql://120.78.128.136:3307/tensquare_article?useunicode=true&characterEncoding=utf8
     username: root
     password: 1234
-  application: Article
-  redis:
-    host: 120.78.128.136
-    port: 9995
+  application: Search
+  data:
+    mongodb:
+      host: 129.204.28.226
+      database: splitdb
+      port: 27017
 
 #Mybatis
 mybatis-plus:
@@ -32,4 +35,4 @@ pagehelper:
   support-methods-arguments: true
   params: count=countsql
 
-#redis
+

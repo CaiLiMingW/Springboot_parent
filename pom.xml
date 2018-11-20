@@ -14,6 +14,10 @@
         <module>Recruit</module>
         <module>Qa</module>
         <module>Article</module>
+        <module>Split</module>
+        <module>Search</module>
+        <module>Sms</module>
+        <module>User</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -43,6 +47,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>com.baomidou</groupId>-->

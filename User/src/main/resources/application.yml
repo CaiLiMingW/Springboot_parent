@@ -1,0 +1,21 @@
+#端口号
+server:
+  port: 9008
+#数据源
+spring:
+  application: Sms
+  rabbitmq:
+    host: 129.204.28.226
+  redis:
+    host: 120.78.128.136
+    port: 9990
+#日志
+logging:
+  level:
+    org:
+      clm:
+        Dao: debug
+
+ali
+
+

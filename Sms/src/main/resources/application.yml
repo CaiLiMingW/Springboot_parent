@@ -1,0 +1,23 @@
+aliyun:
+  sms:
+    accessKeyId: LTAIZn5crtRSKcs1
+    accessKeySecret: ElHK8jWSzGUJun9DCRfpJFmrrt0V5S
+    template_code: SMS_151577549
+    sign_name: 账号注册
+#端口号
+server:
+  port: 9009
+#数据源
+spring:
+  application: Sms
+  rabbitmq:
+    host: 129.204.28.226
+#日志
+logging:
+  level:
+    org:
+      clm:
+        Dao: debug
+
+
+

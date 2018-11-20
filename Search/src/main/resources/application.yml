@@ -1,0 +1,17 @@
+#端口号
+server:
+  port: 9006
+#数据源
+spring:
+  application: Search
+  data:
+    elasticsearch:
+      cluster-nodes: 129.204.28.226:9300
+#日志
+logging:
+  level:
+    org:
+      clm:
+        Dao: debug
+
+
