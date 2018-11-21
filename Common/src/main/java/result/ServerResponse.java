@@ -1,5 +1,7 @@
 package result;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  * @date 2018/11/15 0015 下午 6:59
  * 消息返回类
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServerResponse<T> implements Serializable {
 
     private boolean flag;
@@ -53,6 +56,18 @@ public class ServerResponse<T> implements Serializable {
 
     public static<T> ServerResponse<T> CreateByErrorCode(Integer code, T data){
         return new ServerResponse<T>(false,code,StatusCode.codeOf(code),data);
+    }
+
+    public static<T> ServerResponse<T> CreateByErrorCode(Integer code, T data,String message){
+        return new ServerResponse<T>(false,code,message,data);
+    }
+
+    public static<T> ServerResponse<T> CreateByErrorCode(Integer code, String message){
+        return new ServerResponse<T>(false,code,message);
+    }
+
+    public static<T> ServerResponse<T> CreateByErrorMessage(){
+        return new ServerResponse<T>(false,StatusCode.ERROR.getCode(),StatusCode.ERROR.getDesc());
     }
 
 

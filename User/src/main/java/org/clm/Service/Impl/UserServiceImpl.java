@@ -1,11 +1,19 @@
-package org.clm.Service.Impl;
+package org.clm.Service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.clm.Service.UserService;
+import org.apache.commons.lang3.StringUtils;
+import org.clm.Bean.User;
+import org.clm.Dao.UserMapper;
+import org.clm.Service.IUserService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import result.ServerResponse;
+import result.StatusCode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,16 +21,24 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * <p>
+ * 用户 服务实现类
+ * </p>
+ *
  * @author Ccc
- * @date 2018/11/20 0020 下午 7:13
+ * @since 2018-11-21
  */
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Autowired
     private RedisTemplate redisTemplate;
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void sendMsm(String mobile) {
@@ -33,11 +49,43 @@ public class UserServiceImpl implements UserService {
             code+=1000;
         }
         log.info("\n生成验证码{}",code);
-        redisTemplate.opsForValue().set("smsCode_"+mobile,code,60*10, TimeUnit.SECONDS);
-        Map map = new HashMap();
+        redisTemplate.opsForValue().set("smsCode_"+mobile, String.valueOf(code),60*10, TimeUnit.SECONDS);
+        Map<String,String> map = new HashMap();
         map.put("mobile",mobile);
-        map.put("code",code);
+        map.put("code",String.valueOf(code));
         rabbitTemplate.convertAndSend("sms",map);
         log.info("\n验证码生成成功:mobile={},code={}",mobile,code);
+    }
+
+    @Override
+    public ServerResponse register(User user, String code) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("mobile",user.getMobile());
+        Integer res = userMapper.selectCount(queryWrapper);
+        if (res > 0){
+            return ServerResponse.CreateByErrorCode(StatusCode.ERROR.getCode(),"账号已存在");
+        }
+        String ourcode = String.valueOf(redisTemplate.opsForValue().get("smsCode_" + user.getMobile()));
+        if (ourcode==null||!StringUtils.equals(ourcode,code)){
+            return ServerResponse.CreateByErrorCode(StatusCode.ERROR.getCode(),"验证码错误");
+        }
+        int rescow = userMapper.insert(user);
+        if (rescow > 0){
+            return ServerResponse.CreateBySuccessMessage();
+        }
+        return ServerResponse.CreateByErrorCode(StatusCode.ERROR.getCode(),"注册失败");
+    }
+
+    @Override
+    public User login(User user) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("mobile",user.getMobile());
+        User u = userMapper.selectOne(queryWrapper);
+        log.info("\n登录密码:{}",user.getPassword());
+        log.info("\n数据库密码:{}",u.getPassword());
+        if (u!=null && bCryptPasswordEncoder.matches(user.getPassword(),u.getPassword())){
+            return u;
+        }
+        return null;
     }
 }

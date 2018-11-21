@@ -54,11 +54,11 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://120.78.128.136:3307/tensquare_article?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://120.78.128.136:3307/tensquare_user?useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("root");
+        dsc.setPassword("1234");
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -99,7 +99,7 @@ public class CodeGenerator {
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
-        strategy.setInclude(new String[]{"tb_article","tb_channel","tb_column"});
+        strategy.setInclude(new String[]{"tb_user","tb_admin","tb_follow"});
 //        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix("tb_");

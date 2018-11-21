@@ -1,14 +1,25 @@
 #端口号
 server:
   port: 9008
+
 #数据源
 spring:
-  application: Sms
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.78.128.136:3307/tensquare_user?useunicode=true&characterEncoding=utf8
+    username: root
+    password: 1234
   rabbitmq:
     host: 129.204.28.226
   redis:
     host: 120.78.128.136
     port: 9990
+  application: User
+
+#Mybatis
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: org.clm.Bean
 #日志
 logging:
   level:
@@ -16,6 +27,10 @@ logging:
       clm:
         Dao: debug
 
-ali
-
+#分页
+pagehelper:
+  auto-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
 
