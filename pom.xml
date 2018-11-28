@@ -8,7 +8,6 @@
     <artifactId>Springboot_parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-
         <module>Common</module>
         <module>Base</module>
         <module>Recruit</module>
@@ -18,6 +17,10 @@
         <module>Search</module>
         <module>Sms</module>
         <module>User</module>
+        <module>Eureka</module>
+        <module>Manager</module>
+        <module>Web</module>
+        <module>Config</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -36,7 +39,17 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Finchley.M9</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -45,17 +58,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.0.5</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>com.baomidou</groupId>-->

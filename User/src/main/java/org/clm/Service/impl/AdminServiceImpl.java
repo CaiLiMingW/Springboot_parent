@@ -9,9 +9,12 @@ import org.clm.Service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import result.Roles;
 import result.ServerResponse;
 import result.StatusCode;
+import result.Subject;
 import utils.IdWorker;
+import utils.JwtUtil;
 
 /**
  * <p>
@@ -31,6 +34,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private IdWorker idWorker;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     public ServerResponse addAdmin(Admin admin) {
@@ -59,8 +64,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         Admin admin = adminMapper.selectOne(queryWrapper);
         log.info("账号:{}",admin.getLoginname());
         if (admin != null && bCryptPasswordEncoder.matches(password, admin.getPassword())){
-            return ServerResponse.CreateBySuccessMessage();
+            String jwtToken = jwtUtil.createJWT(loginname, Subject.LOGINSUCCESS.getDesc(), Roles.ADMIN.getDesc());
+            return ServerResponse.CreateBySuccessMessage(jwtToken);
+        }else if (admin != null){
+            return ServerResponse.CreateByErrorCode(StatusCode.LOGINERROR.getCode(),StatusCode.LOGINERROR.getDesc());
         }
-        return ServerResponse.CreateByErrorCode(StatusCode.ERROR.getCode(),"账号密码错误");
+        return ServerResponse.CreateByErrorCode(StatusCode.ACCESSERROR.getCode(),StatusCode.ACCESSERROR.getDesc());
     }
 }

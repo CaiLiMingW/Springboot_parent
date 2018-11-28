@@ -2,6 +2,7 @@ package org.clm.Controller;
 
 
 import org.clm.Bean.Problem;
+import org.clm.Client.LabelClient;
 import org.clm.Service.IProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,14 @@ import result.ServerResponse;
 public class ProblemController {
     @Autowired
     private IProblemService iProblemService;
+    @Autowired
+    private LabelClient labelClient;
+
+    @RequestMapping("/label/{labelId}")
+    public ServerResponse getLabelById(@PathVariable("labelId")String labelId){
+        ServerResponse serverResponse = labelClient.findById(labelId);
+        return serverResponse;
+    }
 
     @PostMapping
     public ServerResponse addProblem(@RequestBody Problem problem){
@@ -44,6 +53,7 @@ public class ProblemController {
 
     @DeleteMapping("/{id}")
     public ServerResponse deleteProblemByid(@PathVariable("id")String id){
+
         return ServerResponse.CreateBySuccessMessage(iProblemService.removeById(id));
     }
 

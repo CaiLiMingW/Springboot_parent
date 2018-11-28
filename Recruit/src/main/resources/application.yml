@@ -1,15 +1,17 @@
 #端口号
 server:
-  port: 9002
+  port: 9007
 
 #数据源
 spring:
+  application:
+    name: Recruit
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://120.78.128.136:3307/tensquare_recruit?useunicode=true&characterEncoding=utf8
     username: root
     password: 1234
-  application: Recruit
+
 
 #Mybatis
 mybatis-plus:
@@ -29,3 +31,10 @@ pagehelper:
   support-methods-arguments: true
   params: count=countsql
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:6868/eureka
+  instance:
+    prefer-ip-address: true
+    appname: Recruit

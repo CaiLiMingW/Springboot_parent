@@ -3,9 +3,12 @@ package org.clm;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import utils.IdWorker;
+import utils.JwtUtil;
+import utils.RolesUtil;
 
 /**
  * @author Ccc
@@ -13,6 +16,7 @@ import utils.IdWorker;
  */
 @MapperScan("org.clm.Dao")
 @SpringBootApplication
+@EnableEurekaClient
 public class UserApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class,args);
@@ -26,5 +30,14 @@ public class UserApplication {
     @Bean
     public BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JwtUtil jwtUtil(){
+        return new JwtUtil();
+    }
+    @Bean
+    public RolesUtil rolesUtil(){
+        return new RolesUtil();
     }
 }

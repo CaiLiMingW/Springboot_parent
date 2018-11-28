@@ -14,11 +14,11 @@ import java.util.Date;
 @ConfigurationProperties("jwt.config")//读取核心配置文件：application.properties 或者 application.yml
 public class JwtUtil {
 
-//    @Value("${jwt.config.key}")
+//    @Value("${jwt.key}")
     private String key ;
 
-//    @Value("${jwt.config.ttl}")
-    private long ttl ;//一个小时
+//    @Value("${jwt.ttl}")
+    private long ttl ;
 
     public String getKey() {
         return key;
@@ -44,12 +44,14 @@ public class JwtUtil {
      * @return
      */
     public String createJWT(String id, String subject, String roles) {
+        ttl=3600000;
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
         JwtBuilder builder = Jwts.builder().setId(id)
                 .setSubject(subject)
                 .setIssuedAt(now)
-                .signWith(SignatureAlgorithm.HS256, key).claim("roles", roles);
+                .signWith(SignatureAlgorithm.HS256, "clmcws")
+                .claim("roles", roles);
         if (ttl > 0) {
             builder.setExpiration( new Date( nowMillis + ttl));
         }
@@ -63,7 +65,7 @@ public class JwtUtil {
      */
     public Claims parseJWT(String jwtStr){
         return  Jwts.parser()
-                .setSigningKey(key)
+                .setSigningKey("clmcws")
                 .parseClaimsJws(jwtStr)
                 .getBody();
     }

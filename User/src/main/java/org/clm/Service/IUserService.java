@@ -18,5 +18,5 @@ public interface IUserService extends IService<User> {
 
     ServerResponse register(User user, String code);
 
-    User login(User user);
+    ServerResponse login(User user);
 }

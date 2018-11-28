@@ -12,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import result.Roles;
 import result.ServerResponse;
 import result.StatusCode;
+import result.Subject;
+import utils.JwtUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +42,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private UserMapper userMapper;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     public void sendMsm(String mobile) {
@@ -63,12 +68,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         queryWrapper.eq("mobile",user.getMobile());
         Integer res = userMapper.selectCount(queryWrapper);
         if (res > 0){
-            return ServerResponse.CreateByErrorCode(StatusCode.ERROR.getCode(),"账号已存在");
+            return ServerResponse.CreateByErrorCode(StatusCode.ERROR.getCode(),"手机已存在");
         }
         String ourcode = String.valueOf(redisTemplate.opsForValue().get("smsCode_" + user.getMobile()));
         if (ourcode==null||!StringUtils.equals(ourcode,code)){
             return ServerResponse.CreateByErrorCode(StatusCode.ERROR.getCode(),"验证码错误");
         }
+        //密码加密
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         int rescow = userMapper.insert(user);
         if (rescow > 0){
             return ServerResponse.CreateBySuccessMessage();
@@ -77,15 +84,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public User login(User user) {
+    public ServerResponse login(User user) {
         QueryWrapper<User> queryWrapper = new QueryWrapper();
         queryWrapper.eq("mobile",user.getMobile());
         User u = userMapper.selectOne(queryWrapper);
         log.info("\n登录密码:{}",user.getPassword());
         log.info("\n数据库密码:{}",u.getPassword());
+        //BCRY验证密码
         if (u!=null && bCryptPasswordEncoder.matches(user.getPassword(),u.getPassword())){
-            return u;
+            String token = jwtUtil.createJWT(u.getMobile(), Subject.LOGINSUCCESS.getDesc(), Roles.USER.getDesc());
+            Map map = new HashMap();
+            map.put("token",token);
+            map.put("name",u.getNickname());
+            map.put("avatar",u.getAvatar());
+            return ServerResponse.CreateBySuccessMessage(map);
         }
-        return null;
+        return ServerResponse.CreateByErrorCode(StatusCode.LOGINERROR.getCode());
     }
 }

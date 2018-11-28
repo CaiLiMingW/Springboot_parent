@@ -1,20 +1,33 @@
 #端口号
 server:
-  port: 9003
+  port: 9002
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 6868
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    appname: Base
+    hostname: localhost
 
 #数据源
 spring:
+  application:
+    name: Base
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://120.78.128.136:3307/tensquare_qa?useunicode=true&characterEncoding=utf8
+    url: jdbc:mysql://120.78.128.136:3307/tensquare_base?useunicode=true&characterEncoding=utf8
     username: root
     password: 1234
-  application: Qa
+
 
 #Mybatis
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: org.clm.Bean
+
 #日志
 logging:
   level:
@@ -28,4 +41,3 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countsql
-

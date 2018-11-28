@@ -1,0 +1,4 @@
+jwt:
+  conifg:
+    key: xxx
+    ttl: 3600000

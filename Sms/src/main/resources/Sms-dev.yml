@@ -1,9 +1,11 @@
 #端口号
 server:
-  port: 9008
+  port: 9011
 
 #数据源
 spring:
+  application:
+    name: User
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://120.78.128.136:3307/tensquare_user?useunicode=true&characterEncoding=utf8
@@ -14,7 +16,7 @@ spring:
   redis:
     host: 120.78.128.136
     port: 9990
-  application: User
+
 
 #Mybatis
 mybatis-plus:
@@ -33,4 +35,12 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countsql
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:6868/eureka
+  instance:
+    prefer-ip-address: true
+    appname: Sms
 

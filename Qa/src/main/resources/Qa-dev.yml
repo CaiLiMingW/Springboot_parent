@@ -1,18 +1,18 @@
 #端口号
 server:
-  port: 9004
+  port: 9006
 
 #数据源
 spring:
+  application:
+    name: Qa
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://120.78.128.136:3307/tensquare_article?useunicode=true&characterEncoding=utf8
+    url: jdbc:mysql://120.78.128.136:3307/tensquare_qa?useunicode=true&characterEncoding=utf8
     username: root
     password: 1234
-  application: Article
-  redis:
-    host: 120.78.128.136
-    port: 9995
+  rabbitmq:
+    host: 129.204.28.226
 
 #Mybatis
 mybatis-plus:
@@ -32,4 +32,14 @@ pagehelper:
   support-methods-arguments: true
   params: count=countsql
 
-#redis
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:6868/eureka/
+  instance:
+    prefer-ip-address: true
+    appname: Qa
+    hostname: localhost
+feign:
+  hystrix:
+    enabled: true

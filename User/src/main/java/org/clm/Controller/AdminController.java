@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import result.ServerResponse;
+import utils.RolesUtil;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -24,24 +27,44 @@ public class AdminController {
     private IAdminService iAdminService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private RolesUtil rolesUtil;
+    @Autowired
+    private HttpServletRequest request;
 
     @PostMapping
     public ServerResponse addAdmin(@RequestBody Admin admin){
+        ServerResponse serverResponse = rolesUtil.CheckRolesAdmin(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         return iAdminService.addAdmin(admin);
     }
 
     @GetMapping
     public ServerResponse getAllAdmin(){
+        ServerResponse serverResponse = rolesUtil.CheckRolesAdmin(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         return ServerResponse.CreateBySuccessMessage(iAdminService.list(null));
     }
 
     @GetMapping("/{id}")
     public ServerResponse getAdminById(@PathVariable("id")String id){
+        ServerResponse serverResponse = rolesUtil.CheckRolesAdmin(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         return ServerResponse.CreateBySuccessMessage(iAdminService.getById(id));
     }
 
     @PutMapping("/{id}")
     public ServerResponse updateAdminById(@PathVariable("id")String id,@RequestBody Admin admin){
+        ServerResponse serverResponse = rolesUtil.CheckRolesAdmin(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         admin.setId(id);
         admin.setPassword(bCryptPasswordEncoder.encode(admin.getPassword()));
         boolean res = iAdminService.updateById(admin);
@@ -53,6 +76,10 @@ public class AdminController {
 
     @DeleteMapping("/{id}")
     public ServerResponse deleteAdminById(@PathVariable("id")String id){
+        ServerResponse serverResponse = rolesUtil.CheckRolesAdmin(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         boolean res = iAdminService.removeById(id);
         if (res){
             return ServerResponse.CreateBySuccessMessage();
@@ -62,6 +89,10 @@ public class AdminController {
 
     @PostMapping("/search/{page}/{size}")
     public ServerResponse getAllByPage(@RequestBody Admin admin,@PathVariable("page")Integer page,@PathVariable("size")Integer size){
+        ServerResponse serverResponse = rolesUtil.CheckRolesAdmin(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         //todo 分页
         return ServerResponse.CreateBySuccessMessage();
     }

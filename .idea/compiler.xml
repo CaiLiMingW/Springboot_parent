@@ -9,12 +9,16 @@
         <module name="Article" />
         <module name="Base" />
         <module name="Common" />
+        <module name="Config" />
+        <module name="Eureka" />
+        <module name="Manager" />
         <module name="Qa" />
         <module name="Recruit" />
         <module name="Search" />
         <module name="Sms" />
         <module name="Split" />
         <module name="User" />
+        <module name="Web" />
       </profile>
     </annotationProcessing>
   </component>

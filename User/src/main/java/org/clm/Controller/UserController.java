@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import result.ServerResponse;
 import result.StatusCode;
 import utils.IdWorker;
+import utils.JwtUtil;
+import utils.RolesUtil;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -29,9 +33,20 @@ public class UserController {
     private IdWorker idWorker;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
+    private RolesUtil rolesUtil;
 
     @PostMapping
     public ServerResponse addUser(@RequestBody User user){
+        //检查权限
+        ServerResponse serverResponse = rolesUtil.CheckRolesAdmin(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("mobile",user.getMobile());
         User u = (User)iUserService.getObj(queryWrapper);
@@ -48,18 +63,18 @@ public class UserController {
 
     @GetMapping
     public ServerResponse getAllUser(){
+        //检查权限
+        ServerResponse serverResponse = rolesUtil.CheckRolesAdmin(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         return ServerResponse.CreateBySuccessMessage(iUserService.list(null));
     }
 
     //todo 修改登录
     @PostMapping("/login")
     public ServerResponse login(@RequestBody User user){
-
-        User res = iUserService.login(user);
-        if (res==null){
-            return ServerResponse.CreateByErrorCode(StatusCode.LOGINERROR.getCode(),StatusCode.LOGINERROR.getDesc());
-        }
-        return ServerResponse.CreateBySuccessMessage();
+            return iUserService.login(user);
     }
 
     @PostMapping("/sendsms/{mobile}")
@@ -80,11 +95,21 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ServerResponse getUserById(@PathVariable("id")String id){
+        //检查权限
+        ServerResponse serverResponse = rolesUtil.CheckRolesUser(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         return ServerResponse.CreateBySuccessMessage(iUserService.getById(id));
     }
 
     @PutMapping("/{id}")
     public ServerResponse updateUserById(@PathVariable("id")String id,@RequestBody User user){
+        //检查权限
+        ServerResponse serverResponse = rolesUtil.CheckRolesUser(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         user.setId(id);
         boolean b = iUserService.updateById(user);
         if (b){
@@ -95,6 +120,12 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ServerResponse deleteUserById(@PathVariable("id")String id){
+        //检查权限
+        ServerResponse serverResponse = rolesUtil.CheckRolesAdmin(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
+
         boolean res = iUserService.removeById(id);
         if (res){
             return ServerResponse.CreateBySuccessMessage();
@@ -103,8 +134,13 @@ public class UserController {
     }
 
     //todo 修改用户登录信息
-    @GetMapping("/info")
+    @GetMapping("/info/{id}")
     public ServerResponse getUserInfo(@PathVariable("id")String id){
+        //检查权限
+        ServerResponse serverResponse = rolesUtil.CheckRolesUser(request);
+        if (serverResponse!=null){
+            return serverResponse;
+        }
         return ServerResponse.CreateBySuccessMessage(iUserService.getById(id));
     }
 }

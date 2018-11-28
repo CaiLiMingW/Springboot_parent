@@ -1,16 +1,17 @@
 #端口号
 server:
-  port: 9004
+  port: 9009
 
 #elasticsearch
 #数据源
 spring:
+  application:
+    name: Split
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://120.78.128.136:3307/tensquare_article?useunicode=true&characterEncoding=utf8
     username: root
     password: 1234
-  application: Search
   data:
     mongodb:
       host: 129.204.28.226
@@ -34,5 +35,11 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countsql
-
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:6868/eureka
+  instance:
+    prefer-ip-address: true
+    appname: Split
 

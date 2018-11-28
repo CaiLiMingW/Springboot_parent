@@ -1,6 +1,6 @@
 #端口号
 server:
-  port: 9006
+  port: 9008
 #数据源
 spring:
   application: Search
@@ -14,4 +14,11 @@ logging:
       clm:
         Dao: debug
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:6868/eureka
+  instance:
+    prefer-ip-address: true
+    appname: Search
 

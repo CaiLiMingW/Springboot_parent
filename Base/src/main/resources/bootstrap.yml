@@ -1,0 +1,8 @@
+#配置
+spring:
+  cloud:
+    config:
+      name: Base                        #name-profile.yml
+      profile: dev                     #服务文件分支
+      label: master                    #服务文件分支
+      uri: http://localhost:12000      #服务中心
