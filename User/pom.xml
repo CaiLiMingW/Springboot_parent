@@ -87,7 +87,7 @@
                     <!--120.78.128.136:5000
                     129.204.28.226
                     -->
-                    <imageName>clmuser</imageName>
+                    <imageName>clmuser:v1.1</imageName>
                     <baseImage>jdk1.8</baseImage>
                     <entryPoint>["java", "-jar","/${project.build.finalName}.jar"]</entryPoint>
                     <resources>
