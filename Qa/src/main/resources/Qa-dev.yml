@@ -39,7 +39,7 @@ eureka:
   instance:
     prefer-ip-address: true
     appname: Qa
-    hostname: localhost
+    hostname: 120.78.128.136
 feign:
   hystrix:
     enabled: true

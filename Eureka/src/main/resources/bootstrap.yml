@@ -5,4 +5,4 @@ spring:
       name: Eureka                        #name-profile.yml
       profile: dev                     #服务文件分支
       label: master                    #服务文件分支
-      uri: http://localhost:12000      #服务中心
+      uri: http://120.78.128.136:12000      #服务中心

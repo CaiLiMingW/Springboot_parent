@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
+      defaultZone: http://120.78.128.136:6868/eureka/
     eureka-server-port: 6868
     fetch-registry: true
   instance:
