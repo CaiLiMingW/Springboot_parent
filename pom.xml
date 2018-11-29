@@ -61,30 +61,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.baomidou</groupId>-->
-            <!--<artifactId>mybatis-plus-extension</artifactId>-->
-            <!--<version>RELEASE</version>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
     </dependencies>
 
-    <!--<dependencyManagement>-->
-        <!--<dependencies>-->
-            <!--<dependency>-->
-                <!--<groupId>org.springframework.cloud</groupId>-->
-                <!--<artifactId>spring-cloud-dependencies</artifactId>-->
-                <!--<version>Finchley.M9</version>-->
-                <!--<type>pom</type>-->
-                <!--<scope>import</scope>-->
-            <!--</dependency>-->
-        <!--</dependencies>-->
-    <!--</dependencyManagement>-->
 
 
     <repositories>
         <repository>
-            <id>spring‐snapshots</id>
+            <id>spring-snapshots</id>
             <name>Spring Snapshots</name>
             <url>https://repo.spring.io/snapshot</url>
             <snapshots>
@@ -92,7 +75,7 @@
             </snapshots>
         </repository>
         <repository>
-            <id>spring‐milestones</id>
+            <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
             <snapshots>
@@ -102,7 +85,7 @@
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>spring‐snapshots</id>
+            <id>spring-snapshots</id>
             <name>Spring Snapshots</name>
             <url>https://repo.spring.io/snapshot</url>
             <snapshots>
@@ -110,7 +93,7 @@
             </snapshots>
         </pluginRepository>
         <pluginRepository>
-            <id>spring‐milestones</id>
+            <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
             <snapshots>
