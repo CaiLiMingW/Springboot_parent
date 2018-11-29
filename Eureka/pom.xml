@@ -48,7 +48,7 @@
                     <!--120.78.128.136:5000
                     129.204.28.226
                     -->
-                    <imageName>clmeureka</imageName>
+                    <imageName>clmeureka:v1.1</imageName>
                     <baseImage>jdk1.8</baseImage>
                     <entryPoint>["java", "-jar","/${project.build.finalName}.jar"]</entryPoint>
                     <resources>
@@ -58,7 +58,7 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
-                    <dockerHost>http://129.204.28.226:2375</dockerHost>
+                    <dockerHost>http://120.78.128.136:2375</dockerHost>
                 </configuration>
             </plugin>
         </plugins>
