@@ -87,7 +87,7 @@
                     <!--120.78.128.136:5000
                     129.204.28.226
                     -->
-                    <imageName>clmuser:v1.1</imageName>
+                    <imageName>clmuser:v1.2</imageName>
                     <baseImage>jdk1.8</baseImage>
                     <entryPoint>["java", "-jar","/${project.build.finalName}.jar"]</entryPoint>
                     <resources>
@@ -97,7 +97,7 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
-                    <dockerHost>http://129.204.28.226:2375</dockerHost>
+                    <dockerHost>http://129.204.41.181:2375</dockerHost>
                 </configuration>
             </plugin>
         </plugins>
