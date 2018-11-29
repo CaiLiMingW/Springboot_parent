@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2018-11-21
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/admin")
 public class AdminController {
 
