@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import result.Roles;
 import result.ServerResponse;
 import result.StatusCode;
-
 import javax.servlet.http.HttpServletRequest;
 
 /**
