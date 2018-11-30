@@ -52,7 +52,7 @@
                     <!--120.78.128.136:5000
                     129.204.28.226
                     -->
-                    <imageName>clmweb</imageName>
+                    <imageName>clmweb:v1.3</imageName>
                     <baseImage>jdk1.8</baseImage>
                     <entryPoint>["java", "-jar","/${project.build.finalName}.jar"]</entryPoint>
                     <resources>

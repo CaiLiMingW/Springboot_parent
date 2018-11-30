@@ -53,7 +53,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (code < 1000){
             code+=1000;
         }
-        log.info("\n生成验证码{}",code);
+        log.info("\ncreate code:{}",code);
         redisTemplate.opsForValue().set("smsCode_"+mobile, String.valueOf(code),60*10, TimeUnit.SECONDS);
         Map<String,String> map = new HashMap();
         map.put("mobile",mobile);
@@ -88,8 +88,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         QueryWrapper<User> queryWrapper = new QueryWrapper();
         queryWrapper.eq("mobile",user.getMobile());
         User u = userMapper.selectOne(queryWrapper);
-        log.info("\n登录密码:{}",user.getPassword());
-        log.info("\n数据库密码:{}",u.getPassword());
         //BCRY验证密码
         if (u!=null && bCryptPasswordEncoder.matches(user.getPassword(),u.getPassword())){
             String token = jwtUtil.createJWT(u.getMobile(), Subject.LOGINSUCCESS.getDesc(), Roles.USER.getDesc());

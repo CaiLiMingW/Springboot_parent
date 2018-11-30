@@ -23,9 +23,9 @@ public class JwtInterceptor implements HandlerInterceptor{
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)throws Exception{
-        log.info("拦截请求:\n{}", request.getRequestURI());
+        log.info("request:\n{}", request.getRequestURI());
         String header = request.getHeader("Authorization");
-        log.info("消息头:{}\n",header);
+        log.info("header:{}\n",header);
         //1.判断消息头
         if (StringUtils.isNotEmpty(header)){
             //2.消息头是否被修改
@@ -35,7 +35,7 @@ public class JwtInterceptor implements HandlerInterceptor{
                 try {
                     //3.获取token中的权限信息
                     String roles = String.valueOf(jwtUtil.parseJWT(token).get("roles"));
-                    log.info("拦截器权限:{}\n",roles);
+                    log.info("roles:{}\n",roles);
                     request.setAttribute(Roles.Key.getDesc(),roles);
                     return true;
                 } catch (Exception e) {

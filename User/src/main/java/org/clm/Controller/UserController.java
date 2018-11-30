@@ -2,6 +2,7 @@ package org.clm.Controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.clm.Bean.User;
 import org.clm.Service.IUserService;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin
+@Slf4j
 public class UserController {
     @Autowired
     private IUserService iUserService;
